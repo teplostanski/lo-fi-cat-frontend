@@ -18,6 +18,8 @@ jobs:
         run: yarn
       - name: "Github Pages Deployment"
         run: |
+          git config --global user.name "${GIT_USER}"
+          git config --global user.email "${GIT_EMAIL}"
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
           yarn deploy
         env:
