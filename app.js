@@ -1,3 +1,5 @@
+import { getApiUrl, getWebSocketUrl } from './config.js';
+
 class StreamRadio {
     constructor() {
         this.state = {
@@ -18,11 +20,13 @@ class StreamRadio {
         this.audioPlayer = document.getElementById('audioPlayer');
         this.socket = null;
         this.destroyWebsocket = () => {};
+        this.eventListenersSetup = false;
         
         this.init();
     }
 
     async init() {
+        this.setupEventListeners();
         this.render();
         this.setTimerToUpdateRunningTime();
         
@@ -481,12 +485,31 @@ class StreamRadio {
                     <div class="track-artist">${fmInfo.artist}</div>
                 </div>
                 <div class="controls">
-                    <button class="mute-btn ${this.getMuteButtonClass()}" onclick="streamRadio.toggleMute()" title="${this.state.playerStatus === 'stopped' && !this.state.hasPlayedOnce ? 'Нажмите чтобы начать воспроизведение' : (this.state.isMuted ? 'Нажмите чтобы включить звук' : 'Нажмите чтобы выключить звук')}">
+                    <button class="mute-btn ${this.getMuteButtonClass()}" data-action="toggle-mute" title="${this.state.playerStatus === 'stopped' && !this.state.hasPlayedOnce ? 'Нажмите чтобы начать воспроизведение' : (this.state.isMuted ? 'Нажмите чтобы включить звук' : 'Нажмите чтобы выключить звук')}">
                         ${this.getMuteButtonText()}
                     </button>
                 </div>
             </div>
         `;
+    }
+    
+    setupEventListeners() {
+        if (this.eventListenersSetup) return; // Уже установлены
+        
+        const playerCard = document.getElementById('playerCard');
+        if (!playerCard) return;
+        
+        // Делегирование событий для кнопки mute (устанавливается один раз)
+        // Работает даже после innerHTML, так как события всплывают
+        playerCard.addEventListener('click', (e) => {
+            const button = e.target.closest('[data-action="toggle-mute"]');
+            if (button) {
+                e.preventDefault();
+                this.toggleMute();
+            }
+        });
+        
+        this.eventListenersSetup = true;
     }
 }
 

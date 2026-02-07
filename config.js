@@ -16,14 +16,14 @@ const getApiBaseUrl = () => {
 const API_BASE_URL = getApiBaseUrl();
 
 // Функция для получения полного URL API эндпоинта
-function getApiUrl(endpoint) {
+export function getApiUrl(endpoint) {
     // Убираем ведущий слэш если есть
     const cleanEndpoint = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint;
     return `${API_BASE_URL}/${cleanEndpoint}`;
 }
 
 // Функция для получения WebSocket URL
-function getWebSocketUrl() {
+export function getWebSocketUrl() {
     const protocol = API_BASE_URL.startsWith('https') ? 'wss://' : 'ws://';
     const url = new URL(API_BASE_URL);
     // Используем порт из URL, если он есть, иначе используем стандартные порты
