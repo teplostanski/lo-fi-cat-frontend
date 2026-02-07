@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamRadio</title>
+    <link rel="icon" type="image/jpg" href="" id="favicon">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="StreamRadio">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="StreamRadio">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1e293b">
+    <meta name="msapplication-TileColor" content="#1e293b">
+    <meta name="msapplication-TileImage" content="" id="tileImage">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="" id="appleTouchIcon1">
+    <link rel="apple-touch-icon" sizes="152x152" href="" id="appleTouchIcon2">
+    <link rel="apple-touch-icon" sizes="180x180" href="" id="appleTouchIcon3">
+    <link rel="apple-touch-icon" sizes="167x167" href="" id="appleTouchIcon4">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-blur" id="backgroundBlur"></div>
+    <div class="overlay"></div>
+    
+    <div class="container">
+        <div class="player-card" id="playerCard">
+            <!-- Содержимое будет сгенерировано динамически через JavaScript -->
+        </div>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
