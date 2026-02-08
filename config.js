@@ -1,7 +1,13 @@
 // Конфигурация API бэкенда
-// URL бэкенда - автоматически определяется по текущему хосту
+// URL бэкенда берется из переменных окружения (VITE_API_BASE_URL)
+// Если переменная не задана, используется автоматическое определение по текущему хосту
 const getApiBaseUrl = () => {
-    // Автоматическое определение по текущему хосту
+    // Приоритет: переменная окружения > автоматическое определение
+    if (import.meta.env.VITE_API_BASE_URL) {
+        return import.meta.env.VITE_API_BASE_URL;
+    }
+    
+    // Автоматическое определение по текущему хосту (fallback)
     const hostname = window.location.hostname;
     const protocol = window.location.protocol;
     
@@ -24,6 +30,12 @@ export function getApiUrl(endpoint) {
 
 // Функция для получения WebSocket URL
 export function getWebSocketUrl() {
+    // Если задан явный WebSocket URL в переменных окружения, используем его
+    if (import.meta.env.VITE_WS_URL) {
+        return import.meta.env.VITE_WS_URL;
+    }
+    
+    // Иначе генерируем из API_BASE_URL
     const protocol = API_BASE_URL.startsWith('https') ? 'wss://' : 'ws://';
     const url = new URL(API_BASE_URL);
     // Используем порт из URL, если он есть, иначе используем стандартные порты
